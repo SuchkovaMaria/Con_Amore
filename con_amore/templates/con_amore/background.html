@@ -1,0 +1,40 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Con Amore</title>
+      <style>
+        body {
+            background-image: url("{% static 'images_auxiliary/fon.jpg' %}");
+            background-repeat: no-repeat;           /* ← Не повторять */
+            background-size: cover;                 /* ← Растянуть на весь экран */
+            background-position: center 10%;            /* ← Центрировать */
+            background-attachment: fixed;           /* ← Фиксировать при скролле */
+            background-color: #fdf8f3;              /* Цвет фона, пока грузится */
+            min-height: 100vh;
+        }
+    </style>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    {% include 'con_amore/includes/inc_menu.html' %}
+    </div>
+
+
+    <div class="container mt-3" style="padding: 20px;">
+
+        {% block content %}
+        {% endblock %}
+
+
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        {% include 'con_amore/includes/foot_menu.html' %}
+        </footer>
+    </div>
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{% extends 'con_amore/background.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-4">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="false" style="border: 2px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;">
+                Фильтрация брони по клиенту
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'con_amore:reservation_list' %}">Все брони</a></li>
+                {% for guests_name in unique_guests_name %}
+                    <li>
+                        <a class="dropdown-item" href="{% url 'con_amore:reservation_list' %}?guests_name={{ guests_name }}">
+                            {{ guests_name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row text-center mt-3">
+    {% for reservation in object_list %}
+          <div class="card mb-3" style="max-width: 1240px;">
+              <div class="row g-0">
+                 <div class="card-body d-flex flex-column" style="padding: 10px 15px;">
+
+                    <p class="card-text text-start fst-italic" style="color: #5c3d2e; font-size: 0.95rem; line-height: 1.2; margin-bottom: 2px;">
+                        {{ reservation.guests_name }}
+                    </p>
+                    <p class="card-text text-start fst-italic" style="color: #5c3d2e; font-size: 0.9rem; line-height: 1.2; margin-bottom: 2px;">
+                        Телефон: {{ reservation.phone }}
+                    </p>
+                    <p class="card-text text-start fst-italic" style="color: #5c3d2e; font-size: 0.9rem; line-height: 1.2; margin-bottom: 2px;">
+                        Столик: {{ reservation.table.table_number }}
+                    </p>
+                    <p class="card-text text-start fst-italic" style="color: #5c3d2e; font-size: 0.9rem; line-height: 1.2; margin-bottom: 10px;">
+                        Дата: {{ reservation.booking_date|date:"d.m.Y H:i" }}
+                    </p>
+                      <a class="p-2 btn btn-outline-primary"
+                           style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 6px 16px; font-size: 0.9rem; text-decoration: none; transition: all 0.3s ease; position: absolute; top: 10px; right: 15px;"
+                           href="{% url 'con_amore:reservation_detail' reservation.pk %}"
+                           onmouseover="this.style.backgroundColor='#8B5A2B'; this.style.color='#ffffff';"
+                           onmouseout="this.style.backgroundColor='transparent'; this.style.color='#8B5A2B';">Подробнее</a>
+                 </div>
+                </div>
+          </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'con_amore/background.html' %}
+{% block content %}
+<div class="row text-center">
+    <form method="post" enctype="multipart/form-data">
+        <div class="card mb-4 box-shadow">
+            <p class="card-text"><h5>Уверены, что хотите удалить {{ object.guests_name }}?</h5></p>
+            <div class="card-body">
+                {% csrf_token %}
+            </div>
+            <button class="p-2 btn btn-outline-primary" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;">Удалить</button>
+            <a class="p-2 btn btn-outline-primary" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:reservation_list' %}" role="button">Вернуться к списку</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends 'con_amore/home.html' %}
+
+{% load static %}
+{% block content %}
+
+<div class="row text-center mt-3">
+      <div class="col-6" style="padding: 0;">
+          <div style="display: flex;
+            justify-content: flex-start;  /* ← Выравнивание по левому краю */
+            align-items: flex-end;        /* ← Выравнивание по нижнему краю */
+            min-height: 90vh;            /* ← Вся высота экрана */
+            padding: 50px;">
+                  <div class="card mb-3" style="max-width: 340px;">
+                  <div class="row g-0">
+                      <div class="card-body d-flex flex-column" style="height: 100%;">
+                          <p class="card-text text-start fst-italic" style="color: #5c3d2e;">В Италии говорят: «Не торопись за стол, если не знаешь, где сядешь». Мы предлагаем вам выбрать лучший уголок нашего ресторана заранее. </p>
+                          <a class="btn align-self-center mt-auto"
+                           style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
+                           data-bs-toggle="modal"
+                           data-bs-target="#bookingModal">Зарезервировать столик</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-6">
+          <div style="display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;        /* ← Выравнивание по нижнему краю */
+            min-height: 90vh;            /* ← Вся высота экрана */
+            padding: 50px;">
+              <div class="card mb-3" style="max-width: 440px;">
+                      <div class="row g-0">
+                          <div class="card-body">
+                              <p class="card-text text-start fst-italic" style="color: #5c3d2e;">Меню «Con Amore» — это путешествие по Италии в трёх страницах: закуски и салаты, домашняя паста и ризотто, сочные вторые блюда и десерты, которые невозможно забыть. От классической карбонары до трюфельной тальятелле, от рибай на гриле до нежного тирамису. С любовью к каждому ингредиенту.</p>
+                              <a href="{% static 'menu.pdf' %}"
+                               class="btn"
+                               style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
+                               target="_blank">Посмотреть меню</a>
+                          </div>
+                      </div>
+                  </div>
+          </div>
+      </div>
+
+      <div class="modal fade" id="bookingModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Выберите дату и время</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Форма без action (отправляем сами) -->
+                        <form method="get" id="bookingForm">
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold" style="color: #5c3d2e;">
+                                    Дата
+                                </label>
+                                <input type="date" class="form-control" id="dateInput" name="date" required
+                                       style="border-color: #d4a373; border-radius: 8px; padding: 10px;">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold" style="color: #5c3d2e;">
+                                    Время
+                                </label>
+                                <select class="form-select" id="timeInput" name="time" required
+                                        style="border-color: #d4a373; border-radius: 8px; padding: 10px;">
+                                    <option value="">Выберите время</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="21:00">21:00</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold" style="color: #5c3d2e;">
+                                    Количество гостей
+                                </label>
+                                <div class="btn-group w-100" role="group" style="gap: 8px;">
+                                    {% for guests in unique_number_of_guests %}
+                                        <input type="radio" class="btn-check" name="guests"
+                                               id="guests{{ guests }}" value="{{ guests }}"
+                                               {% if forloop.first %}checked{% endif %}>
+                                        <label class="btn btn-outline-secondary" for="guests{{ guests }}"
+                                               style="border-radius: 8px; flex: 1; padding: 10px; border-color: #d4a373;">
+                                            {{ guests }}
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn w-100" id="submitBookingBtn"
+                                    style="background-color: #d4a373; color: white; border: none; border-radius: 8px; padding: 12px; font-weight: bold; font-size: 1.1rem;">
+                                Показать подходящие столики
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Устанавливаем сегодняшнюю дату по умолчанию
+            const dateInput = document.getElementById('dateInput');
+            if (dateInput) {
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                dateInput.value = year + '-' + month + '-' + day;
+            }
+
+            // Обработчик кнопки
+            document.getElementById('submitBookingBtn').addEventListener('click', function() {
+                const date = document.getElementById('dateInput').value;
+                const time = document.getElementById('timeInput').value;
+                const guests = document.querySelector('input[name="guests"]:checked');
+
+                // Проверки
+                if (!date) {
+                    alert('Пожалуйста, выберите дату');
+                    return;
+                }
+                if (!time) {
+                    alert('Пожалуйста, выберите время');
+                    return;
+                }
+                if (!guests) {
+                    alert('Пожалуйста, выберите количество гостей');
+                    return;
+                }
+
+                // Формируем URL и переходим
+                const url = '/con_amore/table_list/?date=' + date + '&time=' + time + '&guests=' + guests.value;
+                window.location.href = url;
+            });
+        });
+    </script>
+</div>
+{% endblock %}

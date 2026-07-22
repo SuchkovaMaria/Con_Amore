@@ -1,0 +1,25 @@
+{% extends 'con_amore/background.html' %}
+{% block content %}
+<div class="row text">
+    <form method="post" enctype="multipart/form-data">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                {% csrf_token %}
+                {{form.as_p}}
+            </div>
+            <button type="submit" class="p-2 btn btn-outline-primary" style="border: 2px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;">
+              {% if object %}
+              Сохранить
+              {% else %}
+              Добавить бронь
+              {% endif %}
+            </button>
+            {% if user.is_authenticated %}
+                {% if perms.con_amore.add_table %}
+                    <a class="p-2 btn btn-outline-primary" style="border: 2px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:reservation_list' %}" role="button">Вернуться у списку брони</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </form>
+</div>
+{% endblock %}

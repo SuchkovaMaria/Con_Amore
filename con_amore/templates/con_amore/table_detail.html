@@ -1,0 +1,25 @@
+{% extends 'con_amore/background.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="row text-center">
+    <div class="col-6">
+          <div class="card mb-3" style="max-width: 740px; background-color: transparent; border: none; box-shadow: none;">
+              <div class="row g-0">
+                  <div class="col-md-6">
+                      <img src="{{object.image| media_filter}}" class="img-fluid rounded-start" style="width: 100%; height: 100%; object-fit: cover;"  alt="Столик Con Amore">
+                  </div>
+                  <div class="col-md-6">
+                      <div class="card-body">
+                          <p class="card-text text-start fst-italic" style="color: #5c3d2e;"> Номер столика {{ object.table_number}} </p>
+                          <p class="card-text text-start fst-italic" style="color: #5c3d2e;"> {{ object.description|truncatechars:100 }} </p>
+                          <p class="card-text text-start fst-italic" style="color: #5c3d2e;"> Количество гостей: {{ object.number_of_guests }} </p>
+                          <a class="p-2 btn btn-outline-primary" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:table_update' object.pk %}">Редактировать</a>
+                          <a class="p-2 btn btn-outline-primary" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:table_delete' object.pk %}">Удалить столик</a>
+                          <a class="p-2 btn btn-outline-primary mt-1" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:table_list' %}" role="button">Вернуться к списку столиков</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+</div>
+{% endblock %}
