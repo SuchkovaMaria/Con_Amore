@@ -203,13 +203,29 @@ class ReservationCreateView(CreateView):
             except ValueError:
                 pass
 
+        guests = self.request.GET.get('guests')
+        if guests:
+            try:
+                initial['number_of_guests'] = int(guests)
+            except ValueError:
+                pass
+
         return initial
 
     def get_context_data(self, **kwargs):
+        """Передаем в шаблон выбранный столик и параметры бронирования"""
         context = super().get_context_data(**kwargs)
+
+        # Столик из URL
         table_pk = self.kwargs.get('pk')
         if table_pk:
             context['table'] = get_object_or_404(Table, pk=table_pk)
+
+        # Параметры для отображения в шаблоне
+        context['booking_date'] = self.request.GET.get('date')
+        context['booking_time'] = self.request.GET.get('time')
+        context['booking_guests'] = self.request.GET.get('guests')
+
         return context
 
     def form_valid(self, form):

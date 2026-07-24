@@ -17,14 +17,14 @@
 </div>
 <div class="row text-center mt-3">
     <div class="col-6">
-        <div style="max-width: 700px; margin: 0 auto;">
+        <div style="max-width: 600px; margin: 0 auto;">
             <div id="carouselExample" class="carousel slide">
               <div class="carousel-inner">
                   {% for foto in object_list %}
                     <div class="carousel-item active">
                       <img src="{{ foto.image|media_filter }}"
                          class="d-block w-100"
-                         style="max-height: 700px; object-fit: cover; border-radius: 16px;"
+                         style="max-height: 600px; object-fit: cover; border-radius: 16px;"
                          alt="Фото ресторана">
                     </div>
                   {% endfor %}

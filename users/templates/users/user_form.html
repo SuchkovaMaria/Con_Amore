@@ -1,17 +1,29 @@
 {% extends 'con_amore/background.html' %}
 {% block content %}
-<div class="row text">
-    <form method="post" enctype="multipart/form-data">
-        <div class="card mb-4 box-shadow">
-            <div class="card-body">
-                {% csrf_token %}
-                {{form.as_p}}
+<div class="container py-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow" style="border-radius: 16px; border: none;">
+                <div class="card-header" style="background-color: #5c3d2e; color: white; border-radius: 16px 16px 0 0;">
+                    <h4 class="mb-0">Регистрация</h4>
+                </div>
+                <div class="card-body" style="padding: 20px;">
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        <div class="d-flex gap-2 mt-3">
+                            <button type="submit" class="btn flex-grow-1"
+                                    style="background-color: #d4a373; color: white; padding: 12px; font-weight: bold; font-size: 1rem; border: none; border-radius: 8px;">
+                                Зарегистрироваться
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
             </div>
-            <button type="submit" class="p-2 btn btn-outline-primary" style="border: 2px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" >
-              Зарегистрироваться
-            </button>
-            <a class="p-2 btn btn-outline-primary" style="border: 2px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:home' %}" role="button">Главная</a>
         </div>
-    </form>
+    </div>
 </div>
 {% endblock %}

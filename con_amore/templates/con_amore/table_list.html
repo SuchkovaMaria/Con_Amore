@@ -77,8 +77,12 @@
                                       <p class="card-text text-start fst-italic" style="color: #5c3d2e;"> Номер столика: {{ table.table_number}} </p>
                                       <p class="card-text text-start fst-italic" style="color: #5c3d2e;"> {{ table.description|truncatechars:200 }} </p>
                                       <p class="card-text text-start fst-italic" style="color: #5c3d2e;"> Количество гостей: {{ table.number_of_guests }} </p>
-                                      <a class="p-2 btn btn-outline-primary" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:reservation_create' table.pk %}">Забронировать</a>
-                                  </div>
+                                      <a href="{% url 'con_amore:reservation_create' table.pk %}?date={{ request.GET.date }}&time={{ request.GET.time }}&guests={{ request.GET.guests }}"
+                                           class="btn btn-primary w-100"
+                                           style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;">
+                                            Забронировать
+                                      </a>
+                                   </div>
                               </div>
                           </div>
                       </div>

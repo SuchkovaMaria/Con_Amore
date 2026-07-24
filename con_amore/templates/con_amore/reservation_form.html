@@ -1,25 +1,64 @@
 {% extends 'con_amore/background.html' %}
 {% block content %}
-<div class="row text">
-    <form method="post" enctype="multipart/form-data">
-        <div class="card mb-4 box-shadow">
-            <div class="card-body">
-                {% csrf_token %}
-                {{form.as_p}}
+<div class="container py-1">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow" style="border-radius: 16px; border: none;">
+                <div class="card-header" style="background-color: #5c3d2e; color: white; border-radius: 16px 16px 0 0; margin-bottom: 8px;">
+                    <h4 class="mb-0">Бронирование столика</h4>
+                </div>
+                <div class="card-body">
+
+                    <!-- Информация о выбранном столике -->
+                    {% if table %}
+                        <div class="alert alert-info" style="border-color: #d4a373; background-color: #fef9f4; border-radius: 12px;">
+                            <h5 class="alert-heading" style="color: #5c3d2e;">Выбранный столик: {{ table.table_number }} </h5>
+                            <p class="mb-0">
+                                Вместимость: {{ table.number_of_guests }} чел.
+                                {% if table.description %}
+                                    <br><span class="text-muted">{{ table.description }}</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    {% endif %}
+
+                    <!-- Информация о дате, времени, гостях -->
+                    <div class="alert alert-light py-2" style="border: 1px solid #d4a373; border-radius: 12px; margin-bottom: 8px;">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <strong>Дата</strong><br>
+                                {{ booking_date|default:"-" }}
+                            </div>
+                            <div class="col-4">
+                                <strong>Время</strong><br>
+                                {{ booking_time|default:"-" }}
+                            </div>
+                            <div class="col-4">
+                                <strong>Гостей</strong><br>
+                                {{ booking_guests|default:"-" }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Форма -->
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <!-- Скрытое поле для стола (на всякий случай) -->
+                        {% if table %}
+                            <input type="hidden" name="table" value="{{ table.pk }}">
+                        {% endif %}
+
+                        {{ form.as_p }}
+
+                        <button type="submit" class="btn w-100"
+                                style="background-color: #d4a373; color: white; padding: 12px; font-weight: bold; font-size: 1.1rem; border: none; border-radius: 8px;">
+                            Забронировать
+                        </button>
+                    </form>
+                </div>
             </div>
-            <button type="submit" class="p-2 btn btn-outline-primary" style="border: 2px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;">
-              {% if object %}
-              Сохранить
-              {% else %}
-              Добавить бронь
-              {% endif %}
-            </button>
-            {% if user.is_authenticated %}
-                {% if perms.con_amore.add_table %}
-                    <a class="p-2 btn btn-outline-primary" style="border: 2px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:reservation_list' %}" role="button">Вернуться у списку брони</a>
-                {% endif %}
-            {% endif %}
         </div>
-    </form>
+    </div>
 </div>
 {% endblock %}

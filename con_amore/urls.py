@@ -1,7 +1,7 @@
 from django.urls import path
 
 from con_amore.apps import ConAmoreConfig
-from django.views.generic import TemplateView
+from django.views.decorators.cache import cache_page
 
 from con_amore.views import HomePageTemplateView, TableListView, TableCreateView, TableDetailView, TableUpdateView, \
     TableDeleteView, ReservationListView, ReservationDetailView, ReservationCreateView, ReservationUpdateView, \
@@ -14,12 +14,12 @@ app_name = ConAmoreConfig.name
 
 urlpatterns = [
     path("home/", HomePageTemplateView.as_view(), name="home"),
-    path("con_amore/table_list/", TableListView.as_view(), name="table_list"),
+    path("con_amore/table_list/", cache_page(60)(TableListView.as_view()), name="table_list"),
     path("con_amore/<int:pk>/table/", TableDetailView.as_view(), name="table_detail"),
     path("con_amore/table_create/", TableCreateView.as_view(), name="table_create"),
     path("con_amore/<int:pk>/table_update/", TableUpdateView.as_view(), name="table_update"),
     path("con_amore/<int:pk>/table_delete/", TableDeleteView.as_view(), name="table_delete"),
-    path("con_amore/reservation_list/", ReservationListView.as_view(), name="reservation_list"),
+    path("con_amore/reservation_list/", cache_page(60)(ReservationListView.as_view()), name="reservation_list"),
     path("con_amore/<int:pk>/reservation/", ReservationDetailView.as_view(), name="reservation_detail"),
     path("con_amore/<int:pk>/reservation_create/", ReservationCreateView.as_view(), name="reservation_create"),
     path("con_amore/<int:pk>/reservation_update/", ReservationUpdateView.as_view(), name="reservation_update"),
