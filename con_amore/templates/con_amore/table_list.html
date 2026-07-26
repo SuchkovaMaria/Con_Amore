@@ -3,44 +3,61 @@
 {% block content %}
 
 <div class="row">
-
-    <div class="col-1">
-        {% if user.is_authenticated %}
-            {% if perms.con_amore.add_table %}
+    <!-- Кнопки для управляющих -->
+    {% if user.is_authenticated %}
+        {% if perms.con_amore.add_table %}
+            <div class="col-1">
                 <a class="p-2 btn btn-outline-primary" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:table_create' %}" role="button">Добавить столик</a>
-            {% endif %}
+            </div>
+            <div class="col-1"></div>
+            <div class="col-1">
+                <p class="card-text text-end fst-italic" style="color: #5c3d2e;"> Фильтры: </p>
+            </div>
+            <div class="col-9" style="max-width: 940px;">
+                <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
+                       href="?sort=table_number" role="button">По номеру столика ↑</a>
+
+                <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
+                   href="?sort=-table_number" role="button">По номеру столика ↓</a>
+
+                <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
+                   href="?sort=number_of_guests" role="button">По количеству мест ↑</a>
+
+                <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
+                   href="?sort=-number_of_guests" role="button">По количеству мест ↓</a>
+
+                <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
+                   href="?" role="button">Сбросить фильтры</a>
+            </div>
         {% endif %}
-    </div>
-    <div class="col-1"></div>
-    <div class="col-1">
-        <p class="card-text text-end fst-italic" style="color: #5c3d2e;"> Фильтры: </p>
-    </div>
-    <div class="col-9" style="max-width: 940px;">
-        <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
-               href="?sort=table_number" role="button">По номеру столика ↑</a>
+    {% else %}
+            <!-- Кнопки для пользователей -->
+            <div class="col-1"></div>
+            <div class="col-1">
+                <p class="card-text text-end fst-italic" style="color: #5c3d2e;"> Фильтры: </p>
+            </div>
+            <div class="col-9" style="max-width: 940px;">
+                <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
+                   href="?sort=table_number&date={{ request.GET.date }}&time={{ request.GET.time }}&guests={{ request.GET.guests }}" role="button">
+                    По номеру столика ↑
+                </a>
 
-            <!-- Сортировка по номеру столика (убывание) -->
-            <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
-               href="?sort=-table_number" role="button">По номеру столика ↓</a>
-            {% if user.is_authenticated %}
-                {% if perms.con_amore.add_table %}
-                    <!-- Сортировка по количеству мест (возрастание) -->
-                    <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
-                       href="?sort=number_of_guests" role="button">По количеству мест ↑</a>
+                <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
+                   href="?sort=-table_number&date={{ request.GET.date }}&time={{ request.GET.time }}&guests={{ request.GET.guests }}" role="button">
+                    По номеру столика ↓
+                </a>
 
-                    <!-- Сортировка по количеству мест (убывание) -->
-                    <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
-                       href="?sort=-number_of_guests" role="button">По количеству мест ↓</a>
-                {% endif %}
-            {% endif %}
-
-            <!-- Сброс сортировки -->
-            <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
-               href="?" role="button">Сбросить фильтры</a>
-    </div>
+                <a class="p-2 btn" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
+                   href="?date={{ request.GET.date }}&time={{ request.GET.time }}&guests={{ request.GET.guests }}" role="button">
+                    Сбросить сортировку
+                </a>
+            </div>
+    {% endif %}
 </div>
+
 {% if user.is_authenticated %}
     {% if perms.con_amore.add_table %}
+    <!-- Списток столиков для управляющих -->
         <div class="row text-center mt-3">
             {% for table in object_list %}
                   <div class="col-6">
@@ -61,8 +78,10 @@
                       </div>
                   </div>
             {% endfor %}
+        </div>
     {% endif %}
 {% else %}
+    <!-- Список свободных столиков для клиентов (после формы бронирования)-->
      <div class="row text-center mt-3">
      {% for table in free_table %}
             {% if table.number_of_guests == selected_guests|add:0 %}
@@ -85,11 +104,11 @@
                                    </div>
                               </div>
                           </div>
-                      </div>
+                     </div>
                   </div>
             {% endif %}
     {% endfor %}
      </div>
 {% endif %}
-</div>
+
 {% endblock %}

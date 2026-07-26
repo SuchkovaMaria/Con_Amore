@@ -12,7 +12,7 @@ from config.settings import EMAIL_HOST_USER
 
 
 class UsersCreateView(CreateView):
-    """Класс добавления отзыва"""
+    """Контролер добавления отзыва"""
 
     model = User
     form_class = UserRegisterForm

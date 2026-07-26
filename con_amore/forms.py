@@ -26,9 +26,9 @@ class TableForm(StyleFormMixin, ModelForm):
         model = Table
         fields = ["table_number", "description", "image", "number_of_guests"]
 
+
 class ReservationForm(StyleFormMixin, ModelForm):
     """Класс формы создания/изменения брони"""
-
 
     def clean_booking_date(self):
         """Валидация даты и времени бронирования"""
@@ -38,10 +38,11 @@ class ReservationForm(StyleFormMixin, ModelForm):
             return booking_datetime
 
         booking_time = booking_datetime.time()
-
+        # Время работы ресторана
         OPEN_TIME = "10:00"
         CLOSE_TIME = "23:00"
 
+        #Конвертация строк в объекты времени
         open_time = datetime.strptime(OPEN_TIME, '%H:%M').time()
         close_time = datetime.strptime(CLOSE_TIME, '%H:%M').time()
 
@@ -59,8 +60,7 @@ class ReservationForm(StyleFormMixin, ModelForm):
 
         # 3. Проверка: бронь на 4 часа должна заканчиваться до закрытия
         booking_end = booking_datetime + timedelta(hours=4)
-        print(booking_end)
-        print(close_time)
+
         if booking_end.date() > booking_datetime.date() or booking_end.time() > close_time:
             raise ValidationError(
                 f'Бронирование на 4 часа. Время окончания ({booking_end.strftime("%H:%M")}) '
@@ -82,7 +82,6 @@ class ReservationForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Reservation
         fields = ['guests_name', 'email', 'phone', 'booking_date', 'number_of_guests']
-
         widgets = {
             'booking_date': forms.DateTimeInput(
                 attrs={'type': 'datetime-local', 'class': 'form-control'}

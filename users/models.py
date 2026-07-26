@@ -3,7 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    """Класс Пользователь (для управляющих)"""
+    """Модель Пользователь (для управляющих)"""
 
     username = None
     email = models.EmailField(unique=True, verbose_name="Email")

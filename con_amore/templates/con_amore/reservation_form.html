@@ -22,7 +22,7 @@
                         </div>
                     {% endif %}
 
-                    <!-- Информация о дате, времени, гостях -->
+                    <!-- Информация о дате, времени, гостях (только для чтения) -->
                     <div class="alert alert-light py-2" style="border: 1px solid #d4a373; border-radius: 12px; margin-bottom: 8px;">
                         <div class="row text-center">
                             <div class="col-4">
@@ -44,12 +44,33 @@
                     <form method="post">
                         {% csrf_token %}
 
-                        <!-- Скрытое поле для стола (на всякий случай) -->
+                        <!-- Скрытые поля для даты, времени и гостей -->
+                        <input type="hidden" name="booking_date" value="{{ booking_datetime|default:'' }}">
+                        <input type="hidden" name="number_of_guests" value="{{ booking_guests|default:'' }}">
+
+                        <!-- Скрытое поле для стола -->
                         {% if table %}
                             <input type="hidden" name="table" value="{{ table.pk }}">
                         {% endif %}
 
-                        {{ form.as_p }}
+                        <!-- Показываем только поля для ввода имени, email, телефона -->
+                        <div class="mb-3">
+                            <label for="id_guests_name" class="form-label">Имя гостя</label>
+                            <input type="text" name="guests_name" id="id_guests_name"
+                                   class="form-control" placeholder="Иванов Иван Иванович" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email</label>
+                            <input type="email" name="email" id="id_email"
+                                   class="form-control" placeholder="email@example.com" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_phone" class="form-label">Телефон</label>
+                            <input type="text" name="phone" id="id_phone"
+                                   class="form-control" placeholder="79231234567 (только цифры)" required>
+                        </div>
 
                         <button type="submit" class="btn w-100"
                                 style="background-color: #d4a373; color: white; padding: 12px; font-weight: bold; font-size: 1.1rem; border: none; border-radius: 8px;">

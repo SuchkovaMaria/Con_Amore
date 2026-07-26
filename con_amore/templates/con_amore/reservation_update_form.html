@@ -1,0 +1,47 @@
+{% extends 'con_amore/background.html' %}
+{% block content %}
+<div class="container py-1">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow" style="border-radius: 16px; border: none;">
+                <div class="card-header" style="background-color: #5c3d2e; color: white; border-radius: 16px 16px 0 0; margin-bottom: 8px;">
+                    <h4 class="mb-0">Редактирование бронирования</h4>
+                </div>
+                <div class="card-body">
+
+                    <!-- Информация о выбранном столике -->
+                    {% if table %}
+                        <div class="alert alert-info" style="border-color: #d4a373; background-color: #fef9f4; border-radius: 12px;">
+                            <h5 class="alert-heading" style="color: #5c3d2e;">Столик: {{ table.table_number }} </h5>
+                            <p class="mb-0">
+                                Вместимость: {{ table.number_of_guests }} чел.
+                                {% if table.description %}
+                                    <br><span class="text-muted">{{ table.description }}</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    {% endif %}
+
+                    <!-- Форма с полным доступом -->
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <!-- Скрытое поле для стола -->
+                        {% if table %}
+                            <input type="hidden" name="table" value="{{ table.pk }}">
+                        {% endif %}
+
+                        <!-- Все поля формы доступны для редактирования -->
+                        {{ form.as_p }}
+
+                        <button type="submit" class="btn w-100"
+                                style="background-color: #d4a373; color: white; padding: 12px; font-weight: bold; font-size: 1.1rem; border: none; border-radius: 8px;">
+                            Сохранить изменения
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

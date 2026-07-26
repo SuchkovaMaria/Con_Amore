@@ -10,6 +10,8 @@
             align-items: flex-end;        /* ← Выравнивание по нижнему краю */
             min-height: 90vh;            /* ← Вся высота экрана */
             padding: 50px;">
+              <!-- Карточка для резервирования столика (только для клиентов) -->
+              {% if not user.is_authenticated %}
                   <div class="card mb-3" style="max-width: 340px;">
                   <div class="row g-0">
                       <div class="card-body d-flex flex-column" style="height: 100%;">
@@ -20,9 +22,11 @@
                            data-bs-target="#bookingModal">Зарезервировать столик</a>
                       </div>
                   </div>
-              </div>
+                  </div>
+              {% endif %}
           </div>
       </div>
+      <!-- Карточка для просмотра меню -->
       <div class="col-6">
           <div style="display: flex;
             justify-content: flex-end;
@@ -42,7 +46,7 @@
                   </div>
           </div>
       </div>
-
+      <!-- Форма для указания даты, времени и количества гостей (для определения свободных столиков)-->
       <div class="modal fade" id="bookingModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -51,7 +55,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Форма без action (отправляем сами) -->
+                        <!-- Форма без action (отправка отдельно) -->
                         <form method="get" id="bookingForm">
 
                             <div class="mb-3">
@@ -70,12 +74,20 @@
                                         style="border-color: #d4a373; border-radius: 8px; padding: 10px;">
                                     <option value="">Выберите время</option>
                                     <option value="12:00">12:00</option>
+                                    <option value="12:30">12:30</option>
                                     <option value="13:00">13:00</option>
+                                    <option value="13:30">13:30</option>
                                     <option value="14:00">14:00</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="15:30">15:30</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:30">17:30</option>
                                     <option value="18:00">18:00</option>
+                                    <option value="18:30">18:30</option>
                                     <option value="19:00">19:00</option>
-                                    <option value="20:00">20:00</option>
-                                    <option value="21:00">21:00</option>
                                 </select>
                             </div>
 
@@ -108,7 +120,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Устанавливаем сегодняшнюю дату по умолчанию
+            // Устанавка сегодняшней даты по умолчанию
             const dateInput = document.getElementById('dateInput');
             if (dateInput) {
                 const today = new Date();
@@ -138,7 +150,7 @@
                     return;
                 }
 
-                // Формируем URL и переходим
+                // Формирование URL и перехода по нему
                 const url = '/con_amore/table_list/?date=' + date + '&time=' + time + '&guests=' + guests.value;
                 window.location.href = url;
             });

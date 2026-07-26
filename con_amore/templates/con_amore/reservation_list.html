@@ -1,6 +1,7 @@
 {% extends 'con_amore/background.html' %}
 {% load my_tags %}
 {% block content %}
+<!-- Кнопки для фильтрации броней -->
 <div class="row">
     <div class="col-1"></div>
     <div class="col-4">
@@ -21,6 +22,7 @@
         </div>
     </div>
 </div>
+<!-- Список броней -->
 <div class="row text-center mt-3">
     {% for reservation in object_list %}
           <div class="card mb-3" style="max-width: 1240px;">

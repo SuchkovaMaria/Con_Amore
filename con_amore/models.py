@@ -4,6 +4,7 @@ from django.db import models
 
 
 class Table(models.Model):
+    """Модель столика"""
     table_number = models.IntegerField(verbose_name="Номер столика", help_text="Введите номер столика")
     description = models.CharField(max_length=200, verbose_name="Описание", help_text="Добавьте описание", blank=True, null=True)
 
@@ -30,6 +31,7 @@ class Table(models.Model):
 
 
 class Reservation(models.Model):
+    """Модель брони"""
     guests_name = models.CharField(max_length=50, verbose_name="ФИО", help_text="Укажите ФИО")
     table = models.ForeignKey(
         Table,
@@ -72,7 +74,7 @@ class Reservation(models.Model):
 
 
 class Foto(models.Model):
-
+    """Модель фото"""
     data_at = models.CharField(max_length=20, verbose_name="Дата создания фото", help_text="Добавьте дату создания фото")
 
     # путь для сохранения фото столика
@@ -94,6 +96,7 @@ class Foto(models.Model):
 
 
 class Review(models.Model):
+    """Модель отзыва"""
     name = models.CharField(max_length=20, verbose_name="Автор",
                                help_text="Укажите свое имя", null=False, blank=False)
     review = models.CharField(max_length=200, verbose_name="Отзыв", help_text="Добавьте отзыв", blank=True,

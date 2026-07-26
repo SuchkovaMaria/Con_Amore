@@ -1,7 +1,7 @@
 {% extends 'con_amore/background.html' %}
 {% load my_tags %}
 {% block content %}
-
+<!-- Кнопки для управления -->
 <div class="row">
     <div class="col-12">
         <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
@@ -14,9 +14,11 @@
         </div>
     </div>
 </div>
+
 </div>
 <div class="row text-center mt-3">
     <div class="col-6">
+        <!-- Карточка для фото -->
         <div style="max-width: 600px; margin: 0 auto;">
             <div id="carouselExample" class="carousel slide">
               <div class="carousel-inner">
@@ -40,6 +42,7 @@
             </div>
         </div>
     </div>
+    <!-- Колонка для списка отзывов-->
     <div class="col-5">
         {% for review in review_list %}
             <div class="card-body">

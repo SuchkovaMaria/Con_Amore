@@ -83,6 +83,7 @@ else:
         }
     }
 
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -136,19 +137,31 @@ SERVER_EMAIL = EMAIL_HOST_USER
 
 CACHE_ENABLED = True
 if CACHE_ENABLED:
-    CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": os.getenv("HOST_CACHE", "redis://redis:6379/1"),
+    if IN_DOCKER:
+        CACHES = {
+            "default": {
+                "BACKEND": "django.core.cache.backends.redis.RedisCache",
+                "LOCATION": os.getenv("DOCKER_REDIS_URL",),
+            }
         }
-    }
+    else:
+        CACHES = {
+            "default": {
+                "BACKEND": "django.core.cache.backends.redis.RedisCache",
+                "LOCATION": os.getenv("HOST_CACHE",),
+            }
+        }
 
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
-CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
-CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
+if IN_DOCKER:
+    CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
+    CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND")
+else:
+    CELERY_BROKER_URL = os.getenv("DOCKER_CELERY_BROKER_URL")
+    CELERY_RESULT_BACKEND = os.getenv("DOCKER_CELERY_RESULT_BACKEND")
 
 CELERY_BEAT_SCHEDULE = {
     "user_deactivation": {
