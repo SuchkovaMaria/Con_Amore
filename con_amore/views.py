@@ -17,9 +17,8 @@ class HomePageTemplateView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         # Уникальное количество мест из столиков
-        context['unique_number_of_guests'] = list(
-            Table.objects.values_list('number_of_guests', flat=True)
-            .distinct().order_by('number_of_guests')
+        context["unique_number_of_guests"] = list(
+            Table.objects.values_list("number_of_guests", flat=True).distinct().order_by("number_of_guests")
         )
 
         return context
@@ -41,11 +40,10 @@ class TableListView(ListView):
 
     def apply_sorting(self, queryset):
         """Применяет сортировку к queryset"""
-        sort_param = self.request.GET.get('sort')
+        sort_param = self.request.GET.get("sort")
 
         if sort_param:
-            allowed_sorts = ['number_of_guests', '-number_of_guests',
-                             'table_number', '-table_number']
+            allowed_sorts = ["number_of_guests", "-number_of_guests", "table_number", "-table_number"]
             if sort_param in allowed_sorts:
                 queryset = queryset.order_by(sort_param)
 
@@ -61,14 +59,13 @@ class TableListView(ListView):
             tables = tables.filter(number_of_guests__gte=int(guests))
 
             # Преобразовываем дату и время
-            booking_datetime = datetime.strptime(f"{date} {time}", '%Y-%m-%d %H:%M')
+            booking_datetime = datetime.strptime(f"{date} {time}", "%Y-%m-%d %H:%M")
             booking_end = booking_datetime + timedelta(hours=4)
 
             # Занятые столики
             reserved_table_ids = Reservation.objects.filter(
-                booking_date__lt=booking_end,
-                booking_end__gt=booking_datetime
-            ).values_list('table_id', flat=True)
+                booking_date__lt=booking_end, booking_end__gt=booking_datetime
+            ).values_list("table_id", flat=True)
 
             # Свободные столики
             return tables.exclude(id__in=reserved_table_ids)
@@ -81,9 +78,9 @@ class TableListView(ListView):
         context = super().get_context_data(**kwargs)
 
         # Получение параметров
-        date = self.request.GET.get('date')
-        time = self.request.GET.get('time')
-        guests = self.request.GET.get('guests')
+        date = self.request.GET.get("date")
+        time = self.request.GET.get("time")
+        guests = self.request.GET.get("guests")
 
         # Базовый queryset с сортировкой
         tables = self.apply_sorting(Table.objects.all())
@@ -92,19 +89,16 @@ class TableListView(ListView):
         free_tables = self.get_free_tables(tables, date, time, guests)
 
         # Добавление в контекст
-        context['free_table'] = free_tables
-
+        context["free_table"] = free_tables
 
         # Уникальное количество гостей (для фильтров)
-        context['unique_number_of_guests'] = list(
-            set(Table.objects.values_list('number_of_guests', flat=True))
-        )
+        context["unique_number_of_guests"] = list(set(Table.objects.values_list("number_of_guests", flat=True)))
 
         # Выбранное количество гостей
         try:
-            context['selected_guests'] = int(guests) if guests else None
+            context["selected_guests"] = int(guests) if guests else None
         except ValueError:
-            context['selected_guests'] = None
+            context["selected_guests"] = None
 
         return context
 
@@ -166,7 +160,7 @@ class ReservationListView(ListView):
         queryset = super().get_queryset()
 
         # Для фильтрации по имени гостя
-        guests_name = self.request.GET.get('guests_name')
+        guests_name = self.request.GET.get("guests_name")
         if guests_name:
             queryset = queryset.filter(guests_name=guests_name)
         return queryset
@@ -176,10 +170,11 @@ class ReservationListView(ListView):
         context = super().get_context_data()
         object_list = Reservation.objects.all()
         # Варианты ФИО гостей
-        context['unique_guests_name'] = list(set(reservation.guests_name for reservation in object_list))
+        context["unique_guests_name"] = list(set(reservation.guests_name for reservation in object_list))
         # Варианты посадочных мест у столов
-        context['unique_number_of_guests'] = list(
-            Table.objects.values_list('number_of_guests', flat=True).distinct().order_by('number_of_guests'))
+        context["unique_number_of_guests"] = list(
+            Table.objects.values_list("number_of_guests", flat=True).distinct().order_by("number_of_guests")
+        )
         return context
 
 
@@ -199,21 +194,21 @@ class ReservationCreateView(CreateView):
 
         initial = super().get_initial()
 
-        date = self.request.GET.get('date')
-        time = self.request.GET.get('time')
+        date = self.request.GET.get("date")
+        time = self.request.GET.get("time")
 
         if date and time:
             try:
-                dt = datetime.strptime(f"{date} {time}", '%Y-%m-%d %H:%M')
-                initial['booking_date'] = dt.strftime('%Y-%m-%dT%H:%M')
+                dt = datetime.strptime(f"{date} {time}", "%Y-%m-%d %H:%M")
+                initial["booking_date"] = dt.strftime("%Y-%m-%dT%H:%M")
                 print(f"booking_date: {initial['booking_date']}")
             except ValueError as e:
                 print(f"Ошибка преобразование даты: {e}")
 
-        guests = self.request.GET.get('guests')
+        guests = self.request.GET.get("guests")
         if guests:
             try:
-                initial['number_of_guests'] = int(guests)
+                initial["number_of_guests"] = int(guests)
                 print(f"number_of_guests: {initial['number_of_guests']}")
             except ValueError as e:
                 print(f"Ошибка преобразования гостей: {e}")
@@ -226,32 +221,32 @@ class ReservationCreateView(CreateView):
         context = super().get_context_data(**kwargs)
 
         # Получение столика из URL
-        table_id = self.kwargs.get('pk')
+        table_id = self.kwargs.get("pk")
         if table_id:
             try:
                 table = Table.objects.get(pk=table_id)
-                context['table'] = table
+                context["table"] = table
             except Table.DoesNotExist:
                 pass
 
         # Передача параметров из GET-запроса
-        date = self.request.GET.get('date')
-        time = self.request.GET.get('time')
-        guests = self.request.GET.get('guests')
+        date = self.request.GET.get("date")
+        time = self.request.GET.get("time")
+        guests = self.request.GET.get("guests")
 
-        context['booking_date'] = date
-        context['booking_time'] = time
-        context['booking_guests'] = guests
+        context["booking_date"] = date
+        context["booking_time"] = time
+        context["booking_guests"] = guests
 
         # Формирование booking_datetime для скрытого поля
-        date = self.request.GET.get('date', '')
-        time = self.request.GET.get('time', '')
+        date = self.request.GET.get("date", "")
+        time = self.request.GET.get("time", "")
 
         if date and time:
-            context['booking_datetime'] = f"{date} {time}"
+            context["booking_datetime"] = f"{date} {time}"
         else:
             # Если нет параметров, используем заглушку
-            context['booking_datetime'] = ""
+            context["booking_datetime"] = ""
 
         # # Принудительно устанавливаем, даже если пусто
         # context['booking_datetime'] = context.get('booking_datetime', '')
@@ -264,7 +259,7 @@ class ReservationCreateView(CreateView):
         print("=== form_valid ===")
         print(f"cleaned_data: {form.cleaned_data}")
 
-        table_id = self.kwargs.get('pk')
+        table_id = self.kwargs.get("pk")
         if table_id:
             try:
                 table = Table.objects.get(pk=table_id)
@@ -272,7 +267,7 @@ class ReservationCreateView(CreateView):
                 print(f"Привязан столик: {table.table_number}")
             except Table.DoesNotExist:
                 print(f"Столик с ID {table_id} не найден")
-                form.add_error(None, 'Столик не найден')
+                form.add_error(None, "Столик не найден")
                 return self.form_invalid(form)
 
         response = super().form_valid(form)
@@ -311,7 +306,7 @@ class ReservationUpdateView(UpdateView):
         if self.object and self.object.booking_date:
             # Преобразование в локальное время
             local_dt = localtime(self.object.booking_date)
-            initial['booking_date'] = local_dt.strftime('%Y-%m-%dT%H:%M')
+            initial["booking_date"] = local_dt.strftime("%Y-%m-%dT%H:%M")
         return initial
 
     def get_success_url(self):
@@ -343,7 +338,7 @@ class FotoListView(ListView):
 
         context = super().get_context_data()
         object_list = Review.objects.all()
-        context['review_list'] = list(set(review for review in object_list))
+        context["review_list"] = list(set(review for review in object_list))
 
         return context
 

@@ -11,7 +11,10 @@ class TableAdmin(admin.ModelAdmin):
 
 @admin.register(Foto)
 class FotoAdmin(admin.ModelAdmin):
-    list_display = ("id", "data_at",)
+    list_display = (
+        "id",
+        "data_at",
+    )
     list_filter = ("data_at",)
     search_fields = ("data_at",)
 
@@ -28,4 +31,3 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "review")
     list_filter = ("name",)
     search_fields = ("name",)
-

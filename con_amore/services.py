@@ -1,6 +1,6 @@
 from django.core.cache import cache
 
-from con_amore.models import Table, Reservation, Foto
+from con_amore.models import Table, Reservation
 from config.settings import CACHE_ENABLED
 
 
@@ -17,6 +17,7 @@ def get_table_from_cache():
     cache.set(key, tables)
     return tables
 
+
 def get_reservation_from_cache():
     """Получение списка броней из кеша/БД"""
 
@@ -29,5 +30,3 @@ def get_reservation_from_cache():
     reserves = Reservation.objects.all()
     cache.set(key, reserves)
     return reserves
-
-

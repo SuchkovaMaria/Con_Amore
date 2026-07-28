@@ -23,9 +23,9 @@ def sort_url(request, sort_field):
 
     # Добавление/обновление параметра сортировки
     if sort_field:
-        params['sort'] = sort_field
+        params["sort"] = sort_field
     else:
-        params.pop('sort', None)
+        params.pop("sort", None)
 
     return params.urlencode()
 
@@ -45,7 +45,7 @@ def reset_sort_url(request):
             del params[key]
 
     # Удаление параметров сортировки
-    params.pop('sort', None)
+    params.pop("sort", None)
 
     return params.urlencode()
 

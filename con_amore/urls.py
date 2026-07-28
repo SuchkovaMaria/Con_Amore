@@ -3,13 +3,32 @@ from django.urls import path
 from con_amore.apps import ConAmoreConfig
 from django.views.decorators.cache import cache_page
 
-from con_amore.views import HomePageTemplateView, TableListView, TableCreateView, TableDetailView, TableUpdateView, \
-    TableDeleteView, ReservationListView, ReservationDetailView, ReservationCreateView, ReservationUpdateView, \
-    ReservationDeleteView, FotoListView, FotoDetailView, FotoCreateView, FotoUpdateView, FotoDeleteView, ReviewListView, \
-    ReviewDetailView, ReviewCreateView, ReviewUpdateView, ReviewDeleteView, ContactsTemplateView
+from con_amore.views import (
+    HomePageTemplateView,
+    TableListView,
+    TableCreateView,
+    TableDetailView,
+    TableUpdateView,
+    TableDeleteView,
+    ReservationListView,
+    ReservationDetailView,
+    ReservationCreateView,
+    ReservationUpdateView,
+    ReservationDeleteView,
+    FotoListView,
+    FotoDetailView,
+    FotoCreateView,
+    FotoUpdateView,
+    FotoDeleteView,
+    ReviewListView,
+    ReviewDetailView,
+    ReviewCreateView,
+    ReviewUpdateView,
+    ReviewDeleteView,
+    ContactsTemplateView,
+)
 
 app_name = ConAmoreConfig.name
-
 
 
 urlpatterns = [

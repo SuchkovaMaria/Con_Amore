@@ -15,7 +15,7 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
-IN_DOCKER = os.path.exists('/.dockerenv')
+IN_DOCKER = os.path.exists("/.dockerenv")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -45,7 +45,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            BASE_DIR / 'templates',
+            BASE_DIR / "templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -121,8 +121,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR / "media")
 
 AUTH_USER_MODEL = "users.User"
 
-LOGIN_REDIRECT_URL = 'con_amore:home'
-LOGOUT_REDIRECT_URL = 'con_amore:home'
+LOGIN_REDIRECT_URL = "con_amore:home"
+LOGOUT_REDIRECT_URL = "con_amore:home"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.yandex.ru"
@@ -141,14 +141,18 @@ if CACHE_ENABLED:
         CACHES = {
             "default": {
                 "BACKEND": "django.core.cache.backends.redis.RedisCache",
-                "LOCATION": os.getenv("DOCKER_REDIS_URL",),
+                "LOCATION": os.getenv(
+                    "DOCKER_REDIS_URL",
+                ),
             }
         }
     else:
         CACHES = {
             "default": {
                 "BACKEND": "django.core.cache.backends.redis.RedisCache",
-                "LOCATION": os.getenv("HOST_CACHE",),
+                "LOCATION": os.getenv(
+                    "HOST_CACHE",
+                ),
             }
         }
 
@@ -171,4 +175,3 @@ CELERY_BEAT_SCHEDULE = {
 }
 
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
-
