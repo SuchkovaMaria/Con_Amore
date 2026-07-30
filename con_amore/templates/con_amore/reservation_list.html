@@ -4,7 +4,7 @@
 <!-- Кнопки для фильтрации броней -->
 <div class="row">
     <div class="col-1"></div>
-    <div class="col-4">
+    <div class="col-11">
         <div class="btn-group">
             <button type="button" class="btn btn-primary dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="false" style="border: 2px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;">
                 Фильтрация брони по клиенту
@@ -19,13 +19,41 @@
                     </li>
                 {% endfor %}
             </ul>
+            <!-- Сортировка по времени прихода по возрастанию -->
+            <a class="btn" style="border: 2px solid #8B5A2B; border-radius: 8px; padding: 8px 20px;
+                {% if request.GET.sort == 'booking_date' %}
+                    background-color: #8B5A2B; color: white;
+                {% else %}
+                    color: #8B5A2B; background: transparent;
+                {% endif %}"
+               href="?sort=booking_date{% if request.GET.guests_name %}&guests_name={{ request.GET.guests_name }}{% endif %}{% if request.GET.active %}&active={{ request.GET.active }}{% endif %}">
+                По времени прихода ↑
+            </a>
+            <!-- Кнопка: Только будущие брони -->
+            <a class="btn" style="border: 2px solid #8B5A2B; border-radius: 8px; padding: 8px 20px;
+                {% if request.GET.active == 'true' %}
+                    background-color: #8B5A2B; color: white;
+                {% else %}
+                    color: #8B5A2B; background: transparent;
+                {% endif %}"
+               href="?{% if request.GET.active == 'true' %}{% if request.GET.guests_name %}guests_name={{ request.GET.guests_name }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}{% endif %}{% else %}active=true{% if request.GET.guests_name %}&guests_name={{ request.GET.guests_name }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% endif %}">
+                Плановые (будущие)
+                {% if request.GET.active == 'true' %}
+                    <span style="margin-left: 5px;">✓</span>
+                {% endif %}
+            </a>
+            <!-- Сброс всех фильтров -->
+            <a class="btn" style="border: 2px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;"
+               href="{% url 'con_amore:reservation_list' %}">
+                Сбросить все
+            </a>
         </div>
     </div>
 </div>
 <!-- Список броней -->
 <div class="row text-center mt-3">
     {% for reservation in object_list %}
-          <div class="card mb-3" style="max-width: 1240px;">
+          <div class="card mb-3" style="max-width: 1340px;">
               <div class="row g-0">
                  <div class="card-body d-flex flex-column" style="padding: 10px 15px;">
 

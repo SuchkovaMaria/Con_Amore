@@ -11,7 +11,7 @@ def media_filter(filename):
     return "#"
 
 
-# Добавьте новые теги для работы с URL параметрами
+# Добавление новых тегов для работы с URL параметрами
 @register.simple_tag
 def sort_url(request, sort_field):
     """
@@ -49,44 +49,3 @@ def reset_sort_url(request):
 
     return params.urlencode()
 
-
-# @register.simple_tag
-# def url_with_params(request, **kwargs):
-#     """
-#     Добавление параметров к текущему URL, сохраняя существующие.
-#     Использование: {% url_with_params request sort='table_number' date='2026-07-25' %}
-#     Для добавления сортировки по номеру столика или количеству гостей
-#     """
-#     params = request.GET.copy()
-#
-#     # Удаление пустых параметров
-#     for key in list(params.keys()):
-#         if not params[key]:
-#             del params[key]
-#
-#     # Обновление или добавление новых параметров
-#     for key, value in kwargs.items():
-#         if value is not None:
-#             params[key] = value
-#         else:
-#             # Если значение None - удаление параметра
-#             params.pop(key, None)
-#
-#     return params.urlencode()
-#
-#
-# @register.simple_tag
-# def keep_params(request, *keys):
-#     """
-#     Сохранение указанные параметры.
-#     Использование: {% keep_params request 'date' 'time' 'guests' %}
-#     Генерация URL для бронирования столика
-#     """
-#     params = request.GET.copy()
-#
-#     # Удаление всех параметров, кроме указанных
-#     for key in list(params.keys()):
-#         if key not in keys or not params[key]:
-#             del params[key]
-#
-#     return params.urlencode()

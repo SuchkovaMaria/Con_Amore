@@ -27,7 +27,6 @@ class Table(models.Model):
         ordering = [
             "table_number",
         ]
-        # permissions = [("can_unpublish_product", "Can unpublish product")]
 
     def __str__(self):
         return f"Столик №{self.table_number}"
@@ -71,7 +70,6 @@ class Reservation(models.Model):
         verbose_name = "Бронь"
         verbose_name_plural = "Брони"
         ordering = ["table", "phone", "booking_date", "guests_name"]
-        # permissions = [("can_unpublish_product", "Can unpublish product")]
 
     def __str__(self):
         return self.guests_name

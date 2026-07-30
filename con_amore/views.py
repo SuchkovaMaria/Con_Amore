@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.utils.timezone import localtime
 from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView
 from datetime import datetime, timedelta
@@ -13,7 +14,7 @@ class HomePageTemplateView(TemplateView):
     template_name = "con_amore/home_page.html"
 
     def get_context_data(self, **kwargs):
-        """Для добавление в контекст страницы данных по вариантам посадочных мест столиков"""
+        """Для добавления в контекст страницы данных по вариантам посадочных мест столиков"""
         context = super().get_context_data(**kwargs)
 
         # Уникальное количество мест из столиков
@@ -39,7 +40,7 @@ class TableListView(ListView):
         return self.apply_sorting(queryset)
 
     def apply_sorting(self, queryset):
-        """Применяет сортировку к queryset"""
+        """Сортировкуа в queryset"""
         sort_param = self.request.GET.get("sort")
 
         if sort_param:
@@ -51,23 +52,24 @@ class TableListView(ListView):
 
     def get_free_tables(self, tables, date, time, guests):
         """Возвращает свободные столики с учетом фильтров"""
+
         if not (date and time and guests):
             return tables
 
         try:
-            # Фильтруем по количеству гостей
+            # Фильтрация по количеству гостей
             tables = tables.filter(number_of_guests__gte=int(guests))
 
-            # Преобразовываем дату и время
+            # Преобразование даты и времени
             booking_datetime = datetime.strptime(f"{date} {time}", "%Y-%m-%d %H:%M")
             booking_end = booking_datetime + timedelta(hours=4)
 
-            # Занятые столики
+            # Определение занятых столиков по указанной дате и времени
             reserved_table_ids = Reservation.objects.filter(
                 booking_date__lt=booking_end, booking_end__gt=booking_datetime
             ).values_list("table_id", flat=True)
 
-            # Свободные столики
+            # Определение свободных столиков в указанные дату и время
             return tables.exclude(id__in=reserved_table_ids)
 
         except (ValueError, TypeError) as e:
@@ -75,6 +77,7 @@ class TableListView(ListView):
             return tables
 
     def get_context_data(self, **kwargs):
+        """Добавление в контекст нужных данных"""
         context = super().get_context_data(**kwargs)
 
         # Получение параметров
@@ -138,7 +141,7 @@ class TableUpdateView(UpdateView):
 
 
 class TableDeleteView(DeleteView):
-    """Класс удаления столика"""
+    """Контролер удаления столика"""
 
     model = Table
     # Путь к шаблону для отображения
@@ -157,12 +160,28 @@ class ReservationListView(ListView):
     success_url = reverse_lazy("con_amore:reservation_list")
 
     def get_queryset(self):
+        """Базовый queryset и фильтрация по имени гостя"""
         queryset = super().get_queryset()
 
         # Для фильтрации по имени гостя
         guests_name = self.request.GET.get("guests_name")
         if guests_name:
             queryset = queryset.filter(guests_name=guests_name)
+
+        # Фильтр: Только будущие брони (если нажата кнопка "Плановые")
+        active = self.request.GET.get('active')
+        if active == 'true':
+            now = timezone.now()
+            queryset = queryset.filter(booking_date__gte=now)
+
+        # Сортировка по дате бронирования
+        sort_param = self.request.GET.get('sort')
+        if sort_param == 'booking_date':
+            queryset = queryset.order_by('booking_date')
+        else:
+            # Сортировка по умолчанию (ближайшие сверху)
+            queryset = queryset.order_by('-booking_date')
+
         return queryset
 
     def get_context_data(self):
@@ -175,6 +194,8 @@ class ReservationListView(ListView):
         context["unique_number_of_guests"] = list(
             Table.objects.values_list("number_of_guests", flat=True).distinct().order_by("number_of_guests")
         )
+        # Текущее время для шаблона
+        context['now'] = timezone.now()
         return context
 
 
@@ -248,9 +269,6 @@ class ReservationCreateView(CreateView):
             # Если нет параметров, используем заглушку
             context["booking_datetime"] = ""
 
-        # # Принудительно устанавливаем, даже если пусто
-        # context['booking_datetime'] = context.get('booking_datetime', '')
-
         return context
 
     def form_valid(self, form):
@@ -312,6 +330,18 @@ class ReservationUpdateView(UpdateView):
     def get_success_url(self):
         """Функция перенаправления после сохранения изменений в карточке"""
         return reverse_lazy("con_amore:reservation_detail", args=(self.object.pk,))
+
+    def form_valid(self, form):
+        """При сохранении проверяем дату"""
+        response = super().form_valid(form)
+
+        # ОТЛАДКА
+        print(f"=== ОБНОВЛЕНА БРОНЬ #{self.object.pk} ===")
+        print(f"Новая дата: {self.object.booking_date}")
+        print(f"Текущее время: {timezone.now()}")
+        print(f"Будущая? {self.object.booking_date >= timezone.now()}")
+
+        return response
 
 
 class ReservationDeleteView(DeleteView):

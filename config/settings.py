@@ -104,9 +104,9 @@ LANGUAGE_CODE = "ru"
 
 TIME_ZONE = "Europe/Moscow"
 
-USE_I18N = True  # → поддержка языков
-USE_L10N = True  # → локальные форматы чисел/дат
-USE_TZ = True  # Использовать часовые пояса (рекомендуется)
+USE_I18N = True  # поддержка языков
+USE_L10N = True  # локальные форматы чисел/дат
+USE_TZ = True  # использование часовых поясов
 
 
 STATIC_URL = "static/"
