@@ -476,3 +476,10 @@ class ContactsTemplateView(TemplateView):
 
     # Путь к шаблону для отображения
     template_name = "con_amore/contacts.html"
+
+
+class TeamTemplateView(TemplateView):
+    """Контролер для страницы о команде"""
+
+    # Путь к шаблону для отображения
+    template_name = "con_amore/team.html"

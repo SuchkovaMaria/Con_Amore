@@ -25,7 +25,7 @@ from con_amore.views import (
     ReviewCreateView,
     ReviewUpdateView,
     ReviewDeleteView,
-    ContactsTemplateView,
+    ContactsTemplateView, TeamTemplateView,
 )
 
 app_name = ConAmoreConfig.name
@@ -54,4 +54,5 @@ urlpatterns = [
     # path("con_amore/<int:pk>/review_update/", ReviewUpdateView.as_view(), name="review_update"),
     # path("con_amore/<int:pk>/review_delete/", ReviewDeleteView.as_view(), name="review_delete"),
     path("contacts/", ContactsTemplateView.as_view(), name="contacts"),
+    path("team/", TeamTemplateView.as_view(), name="team"),
 ]
