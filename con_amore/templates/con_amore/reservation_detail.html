@@ -1,0 +1,42 @@
+{% extends 'con_amore/background.html' %}
+{% load my_tags %}
+{% block content %}
+
+<div class="row text-center">
+    <div class="col-6">
+        <!-- Карточка брони -->
+          <div class="card mb-3" style="max-width: 740px;">
+              <div class="row g-0">
+                  <div class="col-md-6">
+                      <img src="{{reservation.table.image| media_filter}}" class="img-fluid rounded-start" style="width: 100%; height: 100%; object-fit: cover;"  alt="Столик Con Amore">
+                  </div>
+                  <div class="col-md-6">
+                      <div class="card-body">
+                        <p class="card-text text-start fst-italic" style="color: #5c3d2e; font-size: 0.85rem; line-height: 1.2; margin-bottom: 4px;">
+                            {{ reservation.guests_name }}
+                        </p>
+                        <p class="card-text text-start fst-italic" style="color: #5c3d2e; font-size: 0.85rem; line-height: 1.2; margin-bottom: 4px;">
+                            Телефон: {{ reservation.phone }}
+                        </p>
+                        <p class="card-text text-start fst-italic" style="color: #5c3d2e; font-size: 0.85rem; line-height: 1.2; margin-bottom: 4px;">
+                            Столик: {{ reservation.table.table_number }}
+                        </p>
+                        <p class="card-text text-start fst-italic" style="color: #5c3d2e; font-size: 0.85rem; line-height: 1.2; margin-bottom: 4px;">
+                            Дата и время прихода гостей: {{ reservation.booking_date }}
+                        </p>
+                        <p class="card-text text-start fst-italic" style="color: #5c3d2e; font-size: 0.85rem; line-height: 1.2; margin-bottom: 4px;">
+                            Дата и время окончания брони: {{ reservation.booking_end }}
+                        </p>
+                        <p class="card-text text-start fst-italic" style="color: #5c3d2e; font-size: 0.85rem; line-height: 1.2; margin-bottom: 4px;">
+                            Количество гостей: {{ reservation.number_of_guests }}
+                        </p>
+                        <a class="p-2 btn btn-outline-primary" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:reservation_update' object.pk %}">Редактировать</a>
+                        <a class="p-2 btn btn-outline-primary" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:reservation_delete' object.pk %}">Удалить бронь</a>
+                        <a class="p-2 btn btn-outline-primary mt-1" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:reservation_list' %}" role="button">Вернуться к списку</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+</div>
+{% endblock %}

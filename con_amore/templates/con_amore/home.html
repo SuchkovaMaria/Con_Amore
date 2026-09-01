@@ -1,0 +1,70 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Con Amore</title>
+      <style>
+        body {
+            background-image: url("{% static 'images_auxiliary/in_group.jpg' %}");
+            background-repeat: no-repeat;           /* Не повторять */
+            background-size: cover;                 /* Растянуть на весь экран */
+            background-position: center 10%;            /* Центрировать */
+            background-attachment: fixed;           /* Фиксировать при скролле */
+            background-color: #fdf8f3;              /* Цвет фона, пока грузится */
+            min-height: 100vh;
+        }
+    </style>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    {% include 'con_amore/includes/inc_menu.html' %}
+    </div>
+
+    </div>
+
+    <div style="background-color: #4a2c1a;
+            border: 1px solid #e8d5b7;
+            border-radius: 16px;
+            padding: 20px 30px;
+            max-width: 425px;
+            position: absolute;
+            top: 250px;       /* ← Отступ сверху */
+            right: 50px;      /* ← Отступ справа */
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);">
+
+        <p style="color: #fdf8f3; text-align: center; font-size: 1.5rem; font-weight: 300; margin-bottom: 10px;">
+            Италия. Уют. Любовь.
+        </p>
+
+        <hr style="border-color: #e8d5b7; opacity: 0.3; margin: 10px 0;">
+
+        <p style="color: #fdf8f3; font-size: 1.05rem; line-height: 1.5; margin-bottom: 8px; text-align: left;">
+            Мы — ресторан, где еда говорит с вами на одном языке — на языке вкуса.
+        </p>
+        <p style="color: #fdf8f3; font-size: 1.05rem; line-height: 1.5; margin-bottom: 8px; text-align: left;">
+            Итальянская классика и авторский взгляд, благородные вина и искренняя атмосфера.
+        </p>
+        <p style="color: #fdf8f3; font-size: 1.05rem; line-height: 1.5; margin-bottom: 0; text-align: left;">
+            Вдохновляйтесь, пробуйте, влюбляйтесь.
+        </p>
+        <p style="color: #fdf8f3; font-size: 1.05rem; line-height: 1.5; margin-bottom: 0; text-align: left;">
+            Con Amore — с любовью к вам.
+        </p>
+    </div>
+    <div class="container-fluid" style="padding: 0; margin: 0; max-width: 100%;">
+
+        {% block content %}
+        {% endblock %}
+
+
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        {% include 'con_amore/includes/foot_menu.html' %}
+        </footer>
+    </div>
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

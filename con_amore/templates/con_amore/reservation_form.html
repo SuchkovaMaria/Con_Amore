@@ -1,0 +1,85 @@
+{% extends 'con_amore/background.html' %}
+{% block content %}
+<div class="container py-1">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow" style="border-radius: 16px; border: none;">
+                <div class="card-header" style="background-color: #5c3d2e; color: white; border-radius: 16px 16px 0 0; margin-bottom: 8px;">
+                    <h4 class="mb-0">Бронирование столика</h4>
+                </div>
+                <div class="card-body">
+
+                    <!-- Информация о выбранном столике -->
+                    {% if table %}
+                        <div class="alert alert-info" style="border-color: #d4a373; background-color: #fef9f4; border-radius: 12px;">
+                            <h5 class="alert-heading" style="color: #5c3d2e;">Выбранный столик: {{ table.table_number }} </h5>
+                            <p class="mb-0">
+                                Вместимость: {{ table.number_of_guests }} чел.
+                                {% if table.description %}
+                                    <br><span class="text-muted">{{ table.description }}</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    {% endif %}
+
+                    <!-- Информация о дате, времени, гостях (только для чтения) -->
+                    <div class="alert alert-light py-2" style="border: 1px solid #d4a373; border-radius: 12px; margin-bottom: 8px;">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <strong>Дата</strong><br>
+                                {{ booking_date|default:"-" }}
+                            </div>
+                            <div class="col-4">
+                                <strong>Время</strong><br>
+                                {{ booking_time|default:"-" }}
+                            </div>
+                            <div class="col-4">
+                                <strong>Гостей</strong><br>
+                                {{ booking_guests|default:"-" }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Форма -->
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <!-- Скрытые поля для даты, времени и гостей -->
+                        <input type="hidden" name="booking_date" value="{{ booking_datetime|default:'' }}">
+                        <input type="hidden" name="number_of_guests" value="{{ booking_guests|default:'' }}">
+
+                        <!-- Скрытое поле для стола -->
+                        {% if table %}
+                            <input type="hidden" name="table" value="{{ table.pk }}">
+                        {% endif %}
+
+                        <!-- Поля доступные для ввода имени, email, телефона -->
+                        <div class="mb-3">
+                            <label for="id_guests_name" class="form-label">Имя гостя</label>
+                            <input type="text" name="guests_name" id="id_guests_name"
+                                   class="form-control" placeholder="Иванов Иван Иванович" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email</label>
+                            <input type="email" name="email" id="id_email"
+                                   class="form-control" placeholder="email@example.com" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_phone" class="form-label">Телефон</label>
+                            <input type="text" name="phone" id="id_phone"
+                                   class="form-control" placeholder="79231234567 (только цифры)" required>
+                        </div>
+
+                        <button type="submit" class="btn w-100"
+                                style="background-color: #d4a373; color: white; padding: 12px; font-weight: bold; font-size: 1.1rem; border: none; border-radius: 8px;">
+                            Забронировать
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

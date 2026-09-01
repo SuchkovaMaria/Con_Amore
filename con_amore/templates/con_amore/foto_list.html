@@ -1,0 +1,56 @@
+{% extends 'con_amore/background.html' %}
+{% load my_tags %}
+{% block content %}
+<!-- Кнопки для управления -->
+<div class="row">
+    <div class="col-12">
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+            {% if user.is_authenticated %}
+                {% if perms.con_amore.add_table %}
+                    <a class="p-2 btn btn-outline-primary" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:foto_create' %}" role="button">Добавить фото</a>
+                {% endif %}
+            {% endif %}
+            <a class="p-2 btn btn-outline-primary" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:review_create' %}" role="button">Добавить отзыв</a>
+        </div>
+    </div>
+</div>
+
+</div>
+<div class="row text-center mt-3">
+    <div class="col-6">
+        <!-- Карточка для карусели с фото -->
+        <div style="max-width: 600px; margin: 0 auto;">
+            <div id="carouselExample" class="carousel slide">
+              <div class="carousel-inner">
+                  {% for foto in object_list %}
+                    <div class="carousel-item active">
+                      <img src="{{ foto.image|media_filter }}"
+                         class="d-block w-100"
+                         style="max-height: 600px; object-fit: cover; border-radius: 16px;"
+                         alt="Фото ресторана">
+                    </div>
+                  {% endfor %}
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+        </div>
+    </div>
+    <!-- Колонка для списка отзывов-->
+    <div class="col-5">
+        {% for review in review_list %}
+            <div class="card-body">
+              <p class="card-text text-start fst-italic" style="color: #5c3d2e; border: 1px solid #8B5A2B; border-radius: 8px; padding: 10px;">{{review.review}} </p>
+              <p class="card-text text-start fst-italic" style="color: #5c3d2e;"> </p>
+              <p class="card-text text-start fst-italic" style="color: #5c3d2e;"> </p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

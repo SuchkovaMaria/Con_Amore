@@ -1,0 +1,234 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Con Amore - Контакты</title>
+
+    <style>
+        body {
+            background-image: url("{% static 'images_auxiliary/in_group_two.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center 70%;
+            background-attachment: fixed;
+            background-color: #f5ebe0;
+            min-height: 100vh;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== КАРТОЧКИ — ПОЛУПРОЗРАЧНЫЕ ===== */
+        .card-con-amore {
+            background-color: rgba(61, 31, 15, 0.75) !important;
+            backdrop-filter: blur(6px) !important;
+            border: 1px solid #d4a373 !important;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .card-con-amore:hover {
+            background-color: rgba(61, 31, 15, 0.88) !important;
+        }
+
+        .card-con-amore * {
+            color: #ffffff !important;
+        }
+
+        .card-con-amore .card-header {
+            background-color: transparent !important;
+            border-bottom: 1px solid #d4a373 !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            font-size: 1.2rem !important;
+        }
+
+        .card-con-amore .card-body {
+            color: #ffffff !important;
+            font-size: 1.05rem !important;
+            line-height: 1.7 !important;
+        }
+
+        .card-con-amore .table {
+            color: #ffffff !important;
+            font-size: 1rem !important;
+        }
+
+        .card-con-amore .table td {
+            border-color: rgba(212, 163, 115, 0.2);
+            padding: 10px 15px;
+            color: #ffffff !important;
+        }
+
+        .card-con-amore .table td:first-child {
+            color: #f5e6d3 !important;
+            font-weight: 700 !important;
+        }
+
+        /* ФОРМА */
+        .card-con-amore .form-control {
+            background-color: #fdf8f3;
+            border: 1px solid #d4a373;
+            border-radius: 8px;
+            color: #2d1a0e !important;
+            font-size: 1rem;
+        }
+
+        .card-con-amore .form-control:focus {
+            border-color: #d4a373;
+            box-shadow: 0 0 0 0.15rem rgba(212, 163, 115, 0.25);
+        }
+
+        .card-con-amore .form-label {
+            color: #f5e6d3 !important;
+            font-weight: 700 !important;
+            font-size: 1rem !important;
+        }
+
+        /* КНОПКА */
+        .btn-con-amore {
+            border: 1px solid #d4a373;
+            color: #ffffff !important;
+            background: transparent;
+            border-radius: 8px;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 700 !important;
+            font-size: 1rem !important;
+        }
+
+        .btn-con-amore:hover {
+            background-color: #d4a373 !important;
+            color: #3d1f0f !important;
+        }
+
+        /* ===== ЗАГОЛОВОК ===== */
+        .header-title {
+            color: #2d1a0e !important;
+            font-family: 'Georgia', serif;
+            font-weight: 700 !important;
+            text-shadow: 0 2px 12px rgba(255, 255, 255, 0.9);
+        }
+
+        .lead {
+            color: #2d1a0e !important;
+            font-weight: 600 !important;
+            font-size: 1.2rem !important;
+            text-shadow: 0 1px 8px rgba(255, 255, 255, 0.8);
+        }
+
+        /* ===== ПОДВАЛ ===== */
+        .footer-con-amore {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid #d4a373;
+            padding: 12px 0;
+            margin-top: 30px;
+        }
+
+        .footer-con-amore a {
+            color: #2d1a0e !important;
+            text-decoration: none;
+            font-weight: 600 !important;
+        }
+
+        .footer-con-amore a:hover {
+            color: #d4a373 !important;
+        }
+
+        .footer-con-amore h5 {
+            color: #2d1a0e !important;
+            font-weight: 700 !important;
+        }
+
+        .footer-con-amore .text-muted {
+            color: #4a2c1a !important;
+            font-weight: 500 !important;
+        }
+
+        /* ===== ШАПКА ===== */
+        .navbar-con-amore {
+            background-color: #ffffff !important;
+            border-bottom: 1px solid #d4a373 !important;
+        }
+    </style>
+
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"/>
+</head>
+<body>
+
+    <!-- inc_menu -->
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow" style="background-color: #ffffff !important; border-bottom: 1px solid #d4a373 !important;">
+        <h5 class="my-0 mr-md-auto font-weight-normal" style="color: #2d1a0e; font-family: 'Georgia', serif; font-weight: 700;">Con Amore</h5>
+        <nav class="ms-5">
+            <a class="p-2 btn btn-outline-primary" style="border: 1px solid #8B5A2B; color: #8B5A2B; background: transparent; border-radius: 8px; padding: 8px 20px;" href="{% url 'con_amore:home' %}">Главная</a>
+        </nav>
+    </div>
+
+    <!-- Карточка информации по контактам -->
+    <div class="container">
+        <div class="row text-start">
+
+            <div class="card card-con-amore mb-4" style="margin-top: 200px;">
+                <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                    <h1 class="display-4 header-title">Контакты</h1>
+                    <p class="lead">Мы всегда рады услышать вас</p>
+                </div>
+                <div class="card-body">
+                    <h4 style="color: #f5e6d3; margin-bottom: 15px; font-weight: 700;">Наши реквизиты</h4>
+                    <table class="table table-striped" style="background-color: #f5ebe0; border-radius: 8px; color: #4a2c1a;">
+                        <tr>
+                            <td class="w-25" style="font-weight: 700; color: #4a2c1a !important; padding: 10px 15px;">Страна</td>
+                            <td style="color: #4a2c1a !important; padding: 10px 15px;">🇮🇹 Италия</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25" style="font-weight: 700; color: #4a2c1a !important; padding: 10px 15px;">ИНН</td>
+                            <td style="color: #4a2c1a !important; padding: 10px 15px;">91-1144442</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25" style="font-weight: 700; color: #4a2c1a !important; padding: 10px 15px;">Адрес</td>
+                            <td style="color: #4a2c1a !important; padding: 10px 15px;">Via Roma, 12, 00100 Roma, Italy</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25" style="font-weight: 700; color: #4a2c1a !important; padding: 10px 15px;">Телефон</td>
+                            <td style="color: #4a2c1a !important; padding: 10px 15px;">+39 06 1234 5678</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25" style="font-weight: 700; color: #4a2c1a !important; padding: 10px 15px;">Email</td>
+                            <td style="color: #4a2c1a !important; padding: 10px 15px;">info@conamore.it</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- foot_menu -->
+    <footer class="footer-con-amore">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <div class="row align-items-center" style="min-height: 40px;">
+                <div class="col-12 col-md">
+                    <span style="color: #2d1a0e; font-weight: 700; font-size: 1rem;">Con Amore</span>
+                    <small class="d-block" style="color: #4a2c1a; font-size: 0.75rem; font-weight: 500;">&copy; 2026</small>
+                </div>
+                <div class="col-6 col-md text-end">
+                    <ul class="list-unstyled text-small" style="margin: 0;">
+                        <li><a href="/contacts/" style="color: #2d1a0e; text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: color 0.3s ease;"
+                               onmouseover="this.style.color='#d4a373';"
+                               onmouseout="this.style.color='#2d1a0e';">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

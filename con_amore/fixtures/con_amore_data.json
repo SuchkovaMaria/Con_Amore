@@ -1,0 +1,269 @@
+[
+  {
+    "model": "con_amore.table",
+    "pk": 1,
+    "fields": {
+      "id": 1,
+      "table_number": 1,
+      "description": "Столик у камина для двоих. Мягкие кресла, бокал вина и живое пламя. Создан для долгих разговоров, уютных ужинов и романтических вечеров в атмосфере тепла и уюта.",
+      "image": "data/image_table/5397568143888161291.jpg",
+      "number_of_guests": 2
+    }
+  },
+  {
+    "model": "con_amore.table",
+    "pk": 2,
+    "fields": {
+      "id": 2,
+      "table_number": 2,
+      "description": "Уютный столик у открытой кухни. Смотрите за искусством шеф-повара, вдыхайте ароматы дровяной печи и наслаждайтесь изысканным ужином вдвоём в атмосфере настоящей Италии.",
+      "image": "data/image_table/5397568143888161290.jpg",
+      "number_of_guests": 2
+    }
+  },
+  {
+    "model": "con_amore.table",
+    "pk": 3,
+    "fields": {
+      "id": 3,
+      "table_number": 3,
+      "description": "Просторный семейный стол у пылающего камина. Тёплый свет, домашний уют и лучшие итальянские традиции для компании из шести человек. Идеально для большого застолья.",
+      "image": "data/image_table/5397568143888161288.jpg",
+      "number_of_guests": 6
+    }
+  },
+  {
+    "model": "con_amore.table",
+    "pk": 4,
+    "fields": {
+      "id": 4,
+      "table_number": 4,
+      "description": "Светлый стол на четверых у панорамного окна. Живописный вид за стеклом, изысканная кухня и лёгкая беседа в обрамлении элегантного интерьера. Идеальное место для встречи.",
+      "image": "data/image_table/5397568143888161289_1.jpg",
+      "number_of_guests": 4
+    }
+  },
+  {
+    "model": "con_amore.table",
+    "pk": 5,
+    "fields": {
+      "id": 5,
+      "table_number": 5,
+      "description": "Гранд-стол для десяти у огромного окна с захватывающим видом. Простор, свет, великолепная панорама и домашний уют для большой семьи. Идеальное место для праздничного обеда.",
+      "image": "data/image_table/5397568143888161287.jpg",
+      "number_of_guests": 10
+    }
+  },
+  {
+    "model": "con_amore.table",
+    "pk": 6,
+    "fields": {
+      "id": 6,
+      "table_number": 6,
+      "description": "Романтичный столик для двоих у окна. Открывается чарующий вид, звучит нежная музыка, в воздухе — аромат средиземноморских трав. Идеальное место для двоих влюблённых.",
+      "image": "data/image_table/5397568143888161292.jpg",
+      "number_of_guests": 2
+    }
+  },
+  {
+    "model": "con_amore.reservation",
+    "pk": 17,
+    "fields": {
+      "id": 17,
+      "guests_name": "Приходько Анатолий",
+      "table": 1,
+      "email": "mashakraxmal@yandex.ru",
+      "phone": "89999999994",
+      "booking_date": "2026-07-30T21:14:00+00:00",
+      "number_of_guests": 2,
+      "booking_end": "2026-07-31T01:14:00+00:00"
+    }
+  },
+  {
+    "model": "con_amore.reservation",
+    "pk": 10,
+    "fields": {
+      "id": 10,
+      "guests_name": "Лищук Николай Николаевич",
+      "table": 1,
+      "email": "mashakraxmal@yandex.ru",
+      "phone": "89999999997",
+      "booking_date": "2026-07-25T11:00:00+00:00",
+      "number_of_guests": 2,
+      "booking_end": "2026-07-25T15:00:00+00:00"
+    }
+  },
+  {
+    "model": "con_amore.reservation",
+    "pk": 1,
+    "fields": {
+      "id": 1,
+      "guests_name": "Иванов Иван",
+      "table": 1,
+      "email": "mashakraxmal@yandex.ru",
+      "phone": "89999999999",
+      "booking_date": "2026-07-20T15:00:00+00:00",
+      "number_of_guests": 2,
+      "booking_end": "2026-07-20T19:00:00+00:00"
+    }
+  },
+  {
+    "model": "con_amore.reservation",
+    "pk": 4,
+    "fields": {
+      "id": 4,
+      "guests_name": "Петрова Татьяна",
+      "table": 2,
+      "email": "mashakraxmal@yandex.ru",
+      "phone": "89999999998",
+      "booking_date": "2026-07-22T18:49:00+00:00",
+      "number_of_guests": 2,
+      "booking_end": "2026-07-22T22:49:00+00:00"
+    }
+  },
+  {
+    "model": "con_amore.reservation",
+    "pk": 11,
+    "fields": {
+      "id": 11,
+      "guests_name": "Иванов О.",
+      "table": 2,
+      "email": "mashakraxmal@yandex.ru",
+      "phone": "89999999999",
+      "booking_date": "2026-07-25T11:00:00+00:00",
+      "number_of_guests": 2,
+      "booking_end": "2026-07-25T15:00:00+00:00"
+    }
+  },
+  {
+    "model": "con_amore.reservation",
+    "pk": 16,
+    "fields": {
+      "id": 16,
+      "guests_name": "Домина Ольга",
+      "table": 3,
+      "email": "mashakraxmal@yandex.ru",
+      "phone": "89999999995",
+      "booking_date": "2026-08-06T16:00:00+00:00",
+      "number_of_guests": 6,
+      "booking_end": "2026-08-06T20:00:00+00:00"
+    }
+  },
+  {
+    "model": "con_amore.review",
+    "pk": 1,
+    "fields": {
+      "id": 1,
+      "name": "Тест",
+      "review": "Потрясающая атмосфера, вкуснейшая кухня и внимательный персонал! Особенно понравился столик у камина. Обязательно вернёмся! Рекомендую!"
+    }
+  },
+  {
+    "model": "con_amore.review",
+    "pk": 2,
+    "fields": {
+      "id": 2,
+      "name": "тест 2",
+      "review": "Шикарный ресторан! Уютная атмосфера, живой огонь в камине, невероятно вкусная паста. Отличное место для романтического вечера. Всё на высоте!"
+    }
+  },
+  {
+    "model": "con_amore.review",
+    "pk": 3,
+    "fields": {
+      "id": 3,
+      "name": "тест 3",
+      "review": "Замечательный ресторан! Уют, тепло, изысканная кухня. Особое спасибо шеф-повару за ризотто и официантам за внимание. Лучшее место в городе!"
+    }
+  },
+  {
+    "model": "con_amore.review",
+    "pk": 4,
+    "fields": {
+      "id": 4,
+      "name": "тест 3",
+      "review": "Очень понравилось! Атмосфера волшебная, кухня великолепная. Столик у камина — это отдельное наслаждение. Персонал внимательный и доброжелательный."
+    }
+  },
+  {
+    "model": "con_amore.review",
+    "pk": 5,
+    "fields": {
+      "id": 5,
+      "name": "тест 4",
+      "review": "Самые волшебные моменты тут! Любим вас !"
+    }
+  },
+  {
+    "model": "con_amore.review",
+    "pk": 6,
+    "fields": {
+      "id": 6,
+      "name": "Тест 3",
+      "review": "Атмосфера сказка! Камин, свечи, вкуснейшая итальянская кухня. Персонал приветливый, обслуживание быстрое. Идеальное место для свидания. Спасибо за вечер!"
+    }
+  },
+  {
+    "model": "con_amore.review",
+    "pk": 7,
+    "fields": {
+      "id": 7,
+      "name": "Тест 4",
+      "review": "В восторге! Всё было идеально: от подачи до десерта. Удивили итальянскими винами и душевной атмосферой. Лучшее открытие этого года! Спасибо!"
+    }
+  },
+  {
+    "model": "con_amore.review",
+    "pk": 8,
+    "fields": {
+      "id": 8,
+      "name": "Тест",
+      "review": "Прекрасное место! Для лучшего свидания)"
+    }
+  },
+  {
+    "model": "con_amore.foto",
+    "pk": 1,
+    "fields": {
+      "id": 1,
+      "data_at": "11.02.2023",
+      "image": "data/image_foto/пара.jpg"
+    }
+  },
+  {
+    "model": "con_amore.foto",
+    "pk": 2,
+    "fields": {
+      "id": 2,
+      "data_at": "13.02.2023",
+      "image": "data/image_foto/компания.jpg"
+    }
+  },
+  {
+    "model": "con_amore.foto",
+    "pk": 3,
+    "fields": {
+      "id": 3,
+      "data_at": "04.06.2023",
+      "image": "data/image_foto/семья.jpg"
+    }
+  },
+  {
+    "model": "con_amore.foto",
+    "pk": 4,
+    "fields": {
+      "id": 4,
+      "data_at": "21.09.2024",
+      "image": "data/image_foto/друзья.jpg"
+    }
+  },
+  {
+    "model": "con_amore.foto",
+    "pk": 5,
+    "fields": {
+      "id": 5,
+      "data_at": "04.09.2024",
+      "image": "data/image_foto/предложение.jpg"
+    }
+  }
+]
